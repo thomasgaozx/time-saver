@@ -32,6 +32,9 @@ function moveAlong() {
     $(".button-bar-wrapper button.btn-primary").click()
 }
 
+function removeRationale() {
+    document.querySelectorAll(".choiceRationale").forEach(e=>{e.parentNode.removeChild(e)});
+}
 
 ////////////////////////////////////////////////////////////////
 
@@ -52,7 +55,7 @@ if (memorization[current_question] == null) {
 }
 
 // picking answers
-options.forEach(op => {
+options.each((i,op) => {
     if (memorization[current_question].includes(slam(op))) {
         pick(op);
     }
@@ -61,9 +64,12 @@ options.forEach(op => {
 // submit
 shoot()
 
+// remove hints and reasons which interferes with memorization
+removeRationale() 
+
 // failure handler: only worry about incorrect
 incorrect_choices=$(".choice-row.-incorrect, .choice-row.-unanswered")
-incorrect_choices.each(c => {
+incorrect_choices.each((i,c) => {
     choice = slam(c);
     console.log(c);
     if (memorization[current_question].includes(choice)) {
